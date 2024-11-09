@@ -3,8 +3,8 @@ vim.g.maplocalleader=","
 
 -- keymaps for nvim-tree
 vim.keymap.set("n", "<leader>pv", "<cmd>NvimTreeToggle<CR>")
-vim.keymap.set("n", "<leader>pf", "<cmd>NvimTreeFocus<CR>")
 vim.keymap.set("n", "<leader>pF", "<cmd>NvimTreeFindFile<CR>")
+vim.keymap.set("n", "<leader>pf", "<cmd>NvimTreeFocus<CR>")
 
 -- keymap to remove the highlight on the searched text
 vim.keymap.set("n", "<ESC>", "<cmd>nohlsearch<CR>")
@@ -25,15 +25,14 @@ vim.keymap.set("n", "<leader>O", "O<Esc>", {desc = "adding a new line above"})
 -------------------------------------------------------------------------
 --- Disabling the arrow keys to get rid of the bad habbit
 -------------------------------------------------------------------------
-
 vim.keymap.set({ 'n', 'i' }, '<Up>', '<Nop>', { noremap = true, silent = true })
 vim.keymap.set({ 'n', 'i' }, '<Down>', '<Nop>', { noremap = true, silent = true })
 vim.keymap.set({ 'n', 'i' }, '<Left>', '<Nop>', { noremap = true, silent = true })
 vim.keymap.set({ 'n', 'i' }, '<Right>', '<Nop>', { noremap = true, silent = true })
 
--------------------------------------------------------------------------
---- Disabling the arrow keys to get rid to the bad habbit
--------------------------------------------------------------------------
+-- keymaps to dragging whole line up and down
+vim.keymap.set('v', "J", ":m '>+1<CR>gv=gv")
+vim.keymap.set('v', "K", ":m '<-2<CR>gv=gv")
 
 vim.keymap.set("n", "<leader>bc", function()
     local activesBuffers = vim.fn.bufnr('%')
