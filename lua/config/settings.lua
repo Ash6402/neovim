@@ -24,6 +24,12 @@ vim.cmd [[highlight IncSearch cterm=NONE gui=NONE]]
 -- make the background transparent
 vim.cmd [[highlight Normal guibg=NONE ctermbg=NONE]]
 
+-- DapBreakpoint customization
+vim.api.nvim_set_hl(0, "white",   { fg = "#ECEFF4" })
+vim.api.nvim_set_hl(0, 'DapBreakpoint', { ctermbg = 0})
+vim.fn.sign_define('DapBreakpoint', { text='•',  texthl = "white", linehl='DapBreakpoint', numhl='DapBreakpoint' })
+
+-- Highlight the yanked selection
 vim.api.nvim_create_autocmd('TextYankPost', {
 
     group = vim.api.nvim_create_augroup('highlight-group', { clear = true }),
@@ -40,3 +46,11 @@ vim.cmd [[
     highlight Pmenu guibg=#434C5E guifg=#D8DEE9      
     highlight PmenuSel guibg=#5E81AC guifg=#ECEFF4  
 ]]
+
+-- run clang format on cpp files
+vim.api.nvim_create_autocmd("BufWritePre", {
+    pattern = "*.cpp,*.h",
+    callback = function()
+        vim.cmd("silent! ClangFormat")
+    end,
+})

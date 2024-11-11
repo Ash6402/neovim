@@ -154,7 +154,22 @@ return {
       --  - settings (table): Override the default settings passed when initializing the server.
       --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
       local servers = {
-        clangd = {},
+        clangd = {
+            on_attach = function(client, bufnr)
+                -- Enable formatting capabilities
+                client.server_capabilities.documentFormattingProvider = true
+                -- Map <Leader>f to formatting command
+                vim.api.nvim_buf_set_keymap(bufnr, 'n', '<Leader>f', '<cmd>lua vim.lsp.buf.format{ async = true }<CR>', { noremap = true, silent = true })
+
+                vim.api.nvim_create_autocmd("BufWritePre", {
+                    buffer = bufnr,
+                    callback = function()
+                        vim.lsp.buf.format({ bufnr = bufnr, async = true })
+                    end
+                })
+            end
+
+        },
         -- gopls = {},
         -- pyright = {},
         -- rust_analyzer = {},
@@ -172,6 +187,18 @@ return {
                 return util.root_pattern("angular.json", "nx.json")(fname)
             end,
             filetypes = { "typescript", "html", "typescriptreact", "typescript.tsx", "htmlangular" },
+        },
+
+        html = {
+            filetypes = {'html', 'htmlangular'},
+            init_options = {
+                configurationSection = { "html", "css", "javascript" },
+                embeddedLanguages = {
+                    css = true,
+                    javascript = true
+                },
+                provideFormatter = true
+            }
         },
 
         cssls = {
