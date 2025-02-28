@@ -46,3 +46,7 @@ vim.keymap.set("n", "<leader>bc", function()
     vim.notify("closed all saved, non-active buffers", "info", { timeout = 1500})
 end
 )
+
+vim.keymap.set("n", "<leader>p{", function() 
+        vim.cmd("%!prettierd --stdin-filepath % 2>/dev/null")
+end, {desc = "Run Prettier Formatting"})
