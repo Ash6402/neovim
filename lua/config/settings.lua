@@ -18,6 +18,8 @@ vim.g.loaded_netrwPlugin=1
 
 vim.opt.termguicolors=true
 
+vim.opt.splitbelow = true
+
 -- remove the underline from the highlight when doing incremental search
 vim.cmd [[highlight IncSearch cterm=NONE gui=NONE]]
 
@@ -49,8 +51,16 @@ vim.cmd [[
 
 -- run clang format on cpp files
 vim.api.nvim_create_autocmd("BufWritePre", {
-    pattern = "*.cpp,*.h",
+    pattern = {"*.cpp", "*.h"},
     callback = function()
         vim.cmd("silent! ClangFormat")
     end,
 })
+
+-- run prettierd formatter on js/ts/html/css/tsx/jsx/scss files
+-- vim.api.nvim_create_autocmd("BufWritePost", {
+--     pattern = {"*.tsx", "*.jsx", "*.js", "*.ts", "*.css", "*.scss", "*.html"},
+--     callback = function()
+--         vim.cmd("%!prettierd --stdin-filepath % 2>/dev/null")
+--     end
+-- })
