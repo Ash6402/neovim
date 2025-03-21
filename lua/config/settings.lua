@@ -57,6 +57,16 @@ vim.api.nvim_create_autocmd("BufWritePre", {
     end,
 })
 
+-- make indent 2 spaces for typescript files
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = { "typescript", "typescriptreact" },
+  callback = function()
+    vim.bo.shiftwidth = 2
+    vim.bo.tabstop = 2
+    vim.bo.expandtab = true
+  end,
+})
+
 -- run prettierd formatter on js/ts/html/css/tsx/jsx/scss files
 -- vim.api.nvim_create_autocmd("BufWritePost", {
 --     pattern = {"*.tsx", "*.jsx", "*.js", "*.ts", "*.css", "*.scss", "*.html"},

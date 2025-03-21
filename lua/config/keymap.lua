@@ -30,7 +30,7 @@ vim.keymap.set({ 'n', 'i' }, '<Down>', '<Nop>', { noremap = true, silent = true 
 vim.keymap.set({ 'n', 'i' }, '<Left>', '<Nop>', { noremap = true, silent = true })
 vim.keymap.set({ 'n', 'i' }, '<Right>', '<Nop>', { noremap = true, silent = true })
 
--- keymaps to dragging whole line up and down
+-- keymaps to dragging whole selections up and down
 vim.keymap.set('v', "J", ":m '>+1<CR>gv=gv")
 vim.keymap.set('v', "K", ":m '<-2<CR>gv=gv")
 
@@ -47,6 +47,6 @@ vim.keymap.set("n", "<leader>bc", function()
 end
 )
 
-vim.keymap.set("n", "<leader>p{", function() 
+vim.keymap.set("n", "<leader>p{", function()
         vim.cmd("%!prettierd --stdin-filepath % 2>/dev/null")
 end, {desc = "Run Prettier Formatting"})
