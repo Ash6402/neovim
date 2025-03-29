@@ -74,3 +74,5 @@ vim.api.nvim_create_autocmd("FileType", {
 --         vim.cmd("%!prettierd --stdin-filepath % 2>/dev/null")
 --     end
 -- })
+--
+vim.diagnostic.config({virtual_text = true})

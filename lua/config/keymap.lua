@@ -38,12 +38,12 @@ vim.keymap.set("n", "<leader>bc", function()
     local activesBuffers = vim.fn.bufnr('%')
     for _, buffer in ipairs(vim.api.nvim_list_bufs()) do
         if buffer ~= activesBuffers and vim.api.nvim_buf_is_loaded(buffer) then
-            if vim.api.nvim_buf_get_option(buffer, 'modified') == false then
+            if vim.bo[buffer].modified == false then
                 vim.api.nvim_buf_delete(buffer, {force = false})
             end
         end
     end
-    vim.notify("closed all saved, non-active buffers", "info", { timeout = 1500})
+    vim.notify("closed all saved, non-active buffers", vim.log.levels.INFO, { timeout = 1500})
 end
 )
 
