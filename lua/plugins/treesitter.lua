@@ -4,8 +4,8 @@ return {
     config = function()
         require('nvim-treesitter.configs').setup({
             -- Install parsers for these languages
-            ensure_installed = { "vimdoc", "markdown", "lua", "javascript", "scss","typescript", "tsx", "html", "css", "angular", 
-            "python" },
+            ensure_installed = { "vimdoc", "markdown", "lua", "javascript", "scss", "typescript", "tsx", "html", "css", "angular",
+                "python" },
 
             -- Enable Tree-sitter based highlighting
             highlight = {
