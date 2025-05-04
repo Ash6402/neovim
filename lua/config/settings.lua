@@ -57,9 +57,9 @@ vim.api.nvim_create_autocmd("BufWritePre", {
     end,
 })
 
--- make indent 2 spaces for typescript files
+-- make indent 2 spaces for typescript, html & css files
 vim.api.nvim_create_autocmd("FileType", {
-  pattern = { "typescript", "typescriptreact" },
+  pattern = { "typescript", "typescriptreact", "html", "htmlangular", "css" },
   callback = function()
     vim.bo.shiftwidth = 2
     vim.bo.tabstop = 2
