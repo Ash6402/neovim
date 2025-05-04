@@ -26,7 +26,10 @@ return {
             view = {
                 side = 'right'
             },
-            on_attach = my_on_attach
+            on_attach = my_on_attach,
+            filters = {
+                dotfiles = false
+            }
         })
 
     end
