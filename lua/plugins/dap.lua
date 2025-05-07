@@ -4,7 +4,7 @@ return {
         "rcarriga/nvim-dap-ui",
         "nvim-neotest/nvim-nio",
         "theHamsta/nvim-dap-virtual-text",
-        "williamboman/mason.nvim",
+        "mason-org/mason.nvim",
     },
     config = function()
         local dap = require("dap")
@@ -16,7 +16,7 @@ return {
             type = 'server',
             port = "${port}",
             executable = {
-                command = require("mason-registry").get_package("codelldb"):get_install_path() .. "/extension/adapter/codelldb",
+                command = vim.fn.exepath("codelldb"),
                 args = {"--port", "${port}"},
             }
         }
