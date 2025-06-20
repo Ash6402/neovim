@@ -4,7 +4,11 @@ return {
     dependencies = { 'nvim-lua/plenary.nvim' },
      config = function()
         -- Setup Telescope
-        require('telescope').setup{}
+        require('telescope').setup{
+            defaults = {
+                file_ignore_patterns = { "node_modules", "dist" }
+            }
+        }
 
         -- Define keymaps for Telescope
         local builtin = require('telescope.builtin')
