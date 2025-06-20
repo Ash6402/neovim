@@ -4,9 +4,23 @@ return {
     dependencies = { 'nvim-lua/plenary.nvim' },
      config = function()
         -- Setup Telescope
+
+        local function send_only_selected_to_qflist(prompt_bufnr)
+            require('telescope.actions').smart_add_to_qflist(prompt_bufnr)
+            vim.cmd("copen")
+        end
+
         require('telescope').setup{
             defaults = {
-                file_ignore_patterns = { "node_modules", "dist" }
+                file_ignore_patterns = { "node_modules", "dist" },
+                mappings = {
+                    i = {
+                        ["<C-q>"] = send_only_selected_to_qflist
+                    },
+                    n = {
+                        ["<C-q>"] = send_only_selected_to_qflist
+                    }
+                }
             }
         }
 
