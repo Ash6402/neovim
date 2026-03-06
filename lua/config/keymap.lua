@@ -2,9 +2,12 @@ vim.g.mapleader=" "
 vim.g.maplocalleader=","
 
 -- keymaps for nvim-tree
-vim.keymap.set("n", "<leader>pv", "<cmd>NvimTreeToggle<CR>")
-vim.keymap.set("n", "<leader>pF", "<cmd>NvimTreeFindFile<CR>")
-vim.keymap.set("n", "<leader>pf", "<cmd>NvimTreeFocus<CR>")
+-- vim.keymap.set("n", "<leader>pv", "<cmd>NvimTreeToggle<CR>")
+-- vim.keymap.set("n", "<leader>pF", "<cmd>NvimTreeFindFile<CR>")
+-- vim.keymap.set("n", "<leader>pf", "<cmd>NvimTreeFocus<CR>")
+
+-- keymaps for oil.nvim are placed in the oil.lua file
+-- placing the keymaps here was casuing a delay in opening oil 
 
 -- keymap to remove the highlight on the searched text
 vim.keymap.set("n", "<ESC>", "<cmd>nohlsearch<CR>")
