@@ -63,9 +63,32 @@ return { -- Main LSP Configuration
         --  This is where a variable was first declared, or where a function is defined, etc.
         --  To jump back, press <C-t>.
         -- map('gd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
-        map('gd', fzf.lsp_definitions, '[G]oto [D]efinition')
+        map('gd', function()
+          vim.lsp.buf.definition({
+            on_list = function(options)
+              if #options.items == 0 then
+                vim.notify('No definition found', vim.log.levels.WARN)
+                return
+              end
+              if #options.items == 1 then
+                vim.fn.setqflist({}, ' ', options)
+                vim.api.nvim_command('cfirst')
+              else
+                local fzf = require("fzf-lua")
+                local entries = {}
+                for _, item in ipairs(options.items) do
+                  table.insert(entries, string.format("%s:%d:%d: %s", item.filename, item.lnum, item.col, item.text))
+                end
+                fzf.fzf_exec(entries, {
+                  prompt = 'Definitions> ',
+                  previewer = "builtin",  -- use fzf-lua's built-in previewer
+                  actions = fzf.defaults.actions.files,
+                })
+              end
+            end,
+          })
+        end, '[G]oto [D]efinition')
 
-        -- Find references for the word under your cursor.
         map('gr', fzf.lsp_references, '[G]oto [R]eferences')
 
         -- Jump to the implementation of the word under your cursor.
