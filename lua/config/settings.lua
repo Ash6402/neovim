@@ -33,12 +33,11 @@ vim.fn.sign_define('DapBreakpoint', { text='•',  texthl = "white", linehl='Dap
 
 -- Highlight the yanked selection
 vim.api.nvim_create_autocmd('TextYankPost', {
+  group = vim.api.nvim_create_augroup('highlight-group', { clear = true }),
 
-    group = vim.api.nvim_create_augroup('highlight-group', { clear = true }),
-
-    callback = function()
-        vim.highlight.on_yank()
-    end
+  callback = function()
+    vim.highlight.on_yank()
+  end
 })
 
 -- Fixing the popup windows theme in the nord theme
@@ -51,15 +50,15 @@ vim.cmd [[
 
 -- run clang format on cpp files
 vim.api.nvim_create_autocmd("BufWritePre", {
-    pattern = {"*.cpp", "*.h"},
-    callback = function()
-        vim.cmd("silent! ClangFormat")
-    end,
+  pattern = {"*.cpp", "*.h"},
+  callback = function()
+    vim.cmd("silent! ClangFormat")
+  end,
 })
 
 -- make indent 2 spaces for typescript, html & css files
 vim.api.nvim_create_autocmd("FileType", {
-  pattern = { "typescript", "typescriptreact", "html", "htmlangular", "css" },
+  pattern = { "typescript", "typescriptreact", "html", "htmlangular", "css", "lua" },
   callback = function()
     vim.bo.shiftwidth = 2
     vim.bo.tabstop = 2
