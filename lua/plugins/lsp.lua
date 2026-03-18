@@ -74,7 +74,6 @@ return { -- Main LSP Configuration
                 vim.fn.setqflist({}, ' ', options)
                 vim.api.nvim_command('cfirst')
               else
-                local fzf = require("fzf-lua")
                 local entries = {}
                 for _, item in ipairs(options.items) do
                   table.insert(entries, string.format("%s:%d:%d: %s", item.filename, item.lnum, item.col, item.text))
@@ -121,8 +120,10 @@ return { -- Main LSP Configuration
         map('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
 
         -- Show the diagnostics for the current line
-        map('<leader>sD', vim.diagnostic.open_float, '[S]how [D]iagnostics')
+        map('<leader>sD', fzf.diagnostics_document, '[S]how [D]iagnostics')
 
+        map(']d', function() vim.diagnostic.jump({ count = 1 }) end, 'Next [D]iagnostic')
+        map('[d', function() vim.diagnostic.jump({ count = -1 }) end, 'Prev [D]iagnostic')
         -- The following two autocommands are used to highlight references of the
         -- word under your cursor when your cursor rests there for a little while.
         --    See `:help CursorHold` for information about when this is executed
