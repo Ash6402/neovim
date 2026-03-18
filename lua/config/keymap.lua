@@ -51,5 +51,17 @@ end
 )
 
 vim.keymap.set("n", "<leader>p{", function()
-        vim.cmd("%!prettierd --stdin-filepath % 2>/dev/null")
+  -- Get the current cursor position
+  local row, col = unpack(vim.api.nvim_win_get_cursor(0));
+  -- Run the formatter on the current buffer
+  local output = vim.fn.system("prettierd --stdin-filepath " .. vim.fn.expand("%:p"), vim.api.nvim_buf_get_lines(0, 0, -1, false))
+
+  if vim.v.shell_error == 0 then
+    vim.api.nvim_buf_set_lines(0, 0, -1, false, vim.split(output, "\n"))
+  else
+    vim.notify(output, vim.log.levels.ERROR)
+  end
+
+  -- Jump the cursor poisition as after the running the formatter the cusror jumps to row 0 and col 0
+  vim.api.nvim_win_set_cursor(0, {row, col});
 end, {desc = "Run Prettier Formatting"})
