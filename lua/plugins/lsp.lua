@@ -101,7 +101,7 @@ return { -- Main LSP Configuration
 
         -- Fuzzy find all the symbols in your current document.
         --  Symbols are things like variables, functions, types, etc.
-        map('<leader>ds', vim.lsp.buf.document_symbol, '[D]ocument [S]ymbols')
+        map('<leader>ds', function() fzf.lsp_document_symbols() end, '[D]ocument [S]ymbols')
 
         -- Fuzzy find all the symbols in your current workspace.
         --  Similar to document symbols, except searches over your entire project.
@@ -119,11 +119,16 @@ return { -- Main LSP Configuration
         --  For example, in C this would take you to the header.
         map('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
 
+        -- Show the diagnostics of the current line
+        map('<leader>sd', vim.diagnostic.open_float, '[S]show [D]iagnostics of the current line')
+
         -- Show the diagnostics for the current line
         map('<leader>sD', fzf.diagnostics_document, '[S]how [D]iagnostics')
 
+        -- Move between the diagnostics list in the current document
         map(']d', function() vim.diagnostic.jump({ count = 1 }) end, 'Next [D]iagnostic')
         map('[d', function() vim.diagnostic.jump({ count = -1 }) end, 'Prev [D]iagnostic')
+
         -- The following two autocommands are used to highlight references of the
         -- word under your cursor when your cursor rests there for a little while.
         --    See `:help CursorHold` for information about when this is executed
