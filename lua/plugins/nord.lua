@@ -1,11 +1,11 @@
 return {
-    'arcticicestudio/nord-vim',
-    config = function()
-        vim.cmd("colorscheme nord")
-        vim.api.nvim_set_hl(0, "TelescopeMatching", {
-            link="Search",
-            bold=true
-        })
-    end
+  "gbprod/nord.nvim",
+  lazy = false,
+  priority = 1000,
+  config = function()
+    require("nord").setup({
+      transparent = true,
+    })
+    vim.cmd.colorscheme("nord")
+  end,
 }
-

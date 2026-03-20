@@ -38,8 +38,8 @@ return {
           fzf_opts = {
             ['--color'] = string.format(
               'hl:%s:bold,hl+:%s:bold:reverse',
-              get_hl_color('Search', 'bg'),
-              get_hl_color('Search', 'bg')
+              get_hl_color('Search', 'fg'),
+              get_hl_color('Search', 'fg')
             ),
           },
         })

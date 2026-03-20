@@ -23,9 +23,6 @@ vim.opt.splitbelow = true
 -- remove the underline from the highlight when doing incremental search
 vim.cmd [[highlight IncSearch cterm=NONE gui=NONE]]
 
--- make the background transparent
-vim.cmd [[highlight Normal guibg=NONE ctermbg=NONE]]
-
 -- DapBreakpoint customization
 vim.api.nvim_set_hl(0, "white",   { fg = "#ECEFF4" })
 vim.api.nvim_set_hl(0, 'DapBreakpoint', { ctermbg = 0})
