@@ -66,12 +66,12 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
 })
 
--- run prettierd formatter on js/ts/html/css/tsx/jsx/scss files
--- vim.api.nvim_create_autocmd("BufWritePost", {
---     pattern = {"*.tsx", "*.jsx", "*.js", "*.ts", "*.css", "*.scss", "*.html"},
---     callback = function()
---         vim.cmd("%!prettierd --stdin-filepath % 2>/dev/null")
---     end
--- })
---
+-- Attach nvim-colorizer to the buffer
+vim.api.nvim_create_autocmd("FileType", {
+    pattern = { "css", "scss", "html", "javascript", "typescript" },
+    callback = function()
+        require("colorizer").attach_to_buffer(0)
+    end,
+})
+
 vim.diagnostic.config({virtual_text = true})
