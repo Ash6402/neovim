@@ -29,7 +29,7 @@ return {
 			win_options = {
 				winblend = 100,
 			},
-		}
+		},
 	},
 	dependencies = {
 		-- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
@@ -40,4 +40,3 @@ return {
 		"rcarriga/nvim-notify",
 	},
 }
-
