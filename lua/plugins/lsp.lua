@@ -10,12 +10,10 @@ return { -- Main LSP Configuration
     -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
     { 'j-hui/fidget.nvim', opts = {} },
 
-    -- Allows extra capabilities provided by nvim-cmp
-    -- 'hrsh7th/cmp-nvim-lsp',
-
     -- Replaced cmp-nvim-lsp with blink.cmp
     'saghen/blink.cmp',
   },
+  event = { "BufReadPre", "BufNewFile" },
   config = function()
     -- Brief aside: **What is LSP?**
     --

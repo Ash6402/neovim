@@ -6,6 +6,12 @@ return {
   ---@diagnostic disable: missing-fields
   opts = {},
   ---@diagnostic enable: missing-fields
+  keys = {
+    { '<leader>ff', function() require('fzf-lua').files()     end, desc = 'FZF find files' },
+    { '<leader>fg', function() require('fzf-lua').live_grep() end, desc = 'FZF live grep' },
+    { '<leader>fb', function() require('fzf-lua').buffers()   end, desc = 'FZF buffers' },
+    { '<leader>fh', function() require('fzf-lua').help_tags() end, desc = 'FZF help tags' },
+  },
   config = function()
     local fzf = require('fzf-lua')
 
@@ -45,11 +51,5 @@ return {
         })
       end
     })
-
-    -- Same keymaps as your telescope config
-    vim.keymap.set('n', '<leader>ff', fzf.files,     { desc = 'FZF find files' })
-    vim.keymap.set('n', '<leader>fg', fzf.live_grep, { desc = 'FZF live grep' })
-    vim.keymap.set('n', '<leader>fb', fzf.buffers,   { desc = 'FZF buffers' })
-    vim.keymap.set('n', '<leader>fh', fzf.help_tags, { desc = 'FZF help tags' })
   end
 }

@@ -8,8 +8,10 @@ return {
       end
       return 'make install_jsregexp'
     end)(),
+    lazy = true
   },
   version = '1.*',
+  event = { "InsertEnter", "CmdlineEnter" },
   opts = {
     snippets = {
       expand = function(snippet)
