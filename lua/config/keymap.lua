@@ -78,3 +78,10 @@ vim.keymap.set("n", "<leader>p{", function()
 	-- Jump the cursor poisition as after the running the formatter the cusror jumps to row 0 and col 0
 	vim.api.nvim_win_set_cursor(0, { row, col })
 end, { desc = "Run Prettier Formatting" })
+
+-------------------------------------------------------------------------
+--- Git diff between two commits
+-------------------------------------------------------------------------
+local gitdiff = require("config.gitdiff")
+vim.keymap.set("n", "<leader>gdf", gitdiff.git_diff_file_commits, { desc = "Git diff file commits" })
+vim.keymap.set("n", "<leader>gda", gitdiff.git_diff_all_commits, { desc = "Git diff all commits" })
