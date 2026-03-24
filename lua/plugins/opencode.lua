@@ -1,15 +1,93 @@
 return {
 	"nickjvandyke/opencode.nvim",
-	version = "*", -- Latest stable release
+	version = "*",
+	lazy = true,
+	keys = {
+		{
+			"<C-a>",
+			mode = { "n", "x" },
+			desc = "Ask opencode (with @this)",
+			function()
+				require("opencode").ask("@this: ", { submit = true })
+			end,
+		},
+		{
+			"<M-C-a>",
+			mode = { "n", "x" },
+			desc = "Ask opencode",
+			function()
+				require("opencode").ask("", { submit = true })
+			end,
+		},
+		{
+			"<C-x>",
+			mode = { "n", "x" },
+			desc = "Execute opencode action",
+			function()
+				require("opencode").select()
+			end,
+		},
+		{
+			"<leader>go",
+			mode = { "n", "t" },
+			desc = "Toggle opencode",
+			function()
+				require("opencode").toggle()
+			end,
+		},
+		{
+			"go",
+			mode = { "n", "x" },
+			expr = true,
+			desc = "Add range to opencode",
+			function()
+				return require("opencode").operator("@this ")
+			end,
+		},
+		{
+			"goo",
+			mode = { "n" },
+			desc = "Add line to opencode",
+			function()
+				return require("opencode").operator("@this ") .. "_"
+			end,
+		},
+		{
+			"<M-C-u>",
+			mode = { "n", "t" },
+			desc = "Scroll opencode up",
+			function()
+				require("opencode").command("session.half.page.up")
+			end,
+		},
+		{
+			"<M-C-d>",
+			mode = { "n", "t" },
+			desc = "Scroll opencode down",
+			function()
+				require("opencode").command("session.half.page.down")
+			end,
+		},
+		{
+			"+",
+			"<C-a>",
+			mode = { "n" },
+			desc = "Increment under cursor",
+		},
+		{
+			"-",
+			"<C-x>",
+			mode = { "n" },
+			desc = "Decrement under cursor",
+		},
+	},
 	dependencies = {
 		{
-			-- `snacks.nvim` integration is recommended, but optional
-			---@module "snacks" <- Loads `snacks.nvim` types for configuration intellisense
 			"folke/snacks.nvim",
 			priority = 1000,
 			opts = {
-				input = {}, -- Enhances `ask()`
-				picker = { -- Enhances `select()`
+				input = {},
+				picker = {
 					actions = {
 						opencode_send = function(...)
 							return require("opencode").snacks_picker_send(...)
@@ -27,43 +105,7 @@ return {
 		},
 	},
 	config = function()
-		---@type opencode.Opts
-		vim.g.opencode_opts = {
-			-- Your configuration, if any; goto definition on the type or field for details
-		}
-
-		vim.o.autoread = true -- Required for `opts.events.reload`
-
-		-- Recommended/example keymaps
-		vim.keymap.set({ "n", "x" }, "<C-a>", function()
-			require("opencode").ask("@this: ", { submit = true })
-		end, { desc = "Ask opencode…" })
-		vim.keymap.set({ "n", "x" }, "<M-C-a>", function()
-			require("opencode").ask("", { submit = true })
-		end, { desc = "Ask opencode…" })
-		vim.keymap.set({ "n", "x" }, "<C-x>", function()
-			require("opencode").select()
-		end, { desc = "Execute opencode action…" })
-		vim.keymap.set({ "n", "t" }, "<leader>go", function()
-			require("opencode").toggle()
-		end, { desc = "Toggle opencode" })
-
-		vim.keymap.set({ "n", "x" }, "go", function()
-			return require("opencode").operator("@this ")
-		end, { desc = "Add range to opencode", expr = true })
-		vim.keymap.set("n", "goo", function()
-			return require("opencode").operator("@this ") .. "_"
-		end, { desc = "Add line to opencode", expr = true })
-
-		vim.keymap.set({ "n", "t" }, "<M-C-u>", function()
-			require("opencode").command("session.half.page.up")
-		end, { desc = "Scroll opencode up" })
-		vim.keymap.set({ "n", "t" }, "<M-C-d>", function()
-			require("opencode").command("session.half.page.down")
-		end, { desc = "Scroll opencode down" })
-
-		-- You may want these if you use the opinionated `<C-a>` and `<C-x>` keymaps above — otherwise consider `<leader>o…` (and remove terminal mode from the `toggle` keymap)
-		vim.keymap.set("n", "+", "<C-a>", { desc = "Increment under cursor", noremap = true })
-		vim.keymap.set("n", "-", "<C-x>", { desc = "Decrement under cursor", noremap = true })
+		vim.g.opencode_opts = {}
+		vim.o.autoread = true
 	end,
 }
