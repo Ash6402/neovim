@@ -91,4 +91,9 @@ function M.git_diff_all_commits()
   git_diff_commits({})
 end
 
+function M.git_diff_head()
+  require("diffview")
+  vim.cmd("DiffviewOpen HEAD")
+end
+
 return M
