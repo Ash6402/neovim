@@ -39,41 +39,26 @@ return {
 	config = function()
 		local fzf = require("fzf-lua")
 
-		local function get_hl_color(group, attr)
-			local hl = vim.api.nvim_get_hl(0, { name = group, link = false })
-			local color = hl[attr]
-			if color then
-				return string.format("#%06x", color)
-			end
-		end
-
-		vim.api.nvim_create_autocmd("VimEnter", {
-			callback = function()
-				fzf.setup({
-					winopts = {
-						height = 0.85,
-						width = 0.80,
-						row = 0.35,
-						col = 0.50,
-						border = "rounded",
-					},
-					defaults = {
-						file_ignore_patterns = { "node_modules", "dist" },
-					},
-					keymap = {
-						builtin = {
-							["<C-q>"] = "select-all+accept",
-						},
-					},
-					fzf_opts = {
-						["--color"] = string.format(
-							"hl:%s:bold,hl+:%s:bold:reverse",
-							get_hl_color("Search", "fg"),
-							get_hl_color("Search", "fg")
-						),
-					},
-				})
-			end,
+		fzf.setup({
+			winopts = {
+				height = 0.85,
+				width = 0.80,
+				row = 0.35,
+				col = 0.50,
+				border = "rounded",
+			},
+			defaults = {
+				file_ignore_patterns = { "node_modules", "dist" },
+			},
+			keymap = {
+				builtin = {
+					["<C-q>"] = "select-all+accept",
+				},
+			},
+			fzf_colors = {
+				["hl"] = { "fg", "Search" },
+				["hl+"] = { "fg", "Search", "bold", "reverse" },
+			},
 		})
 	end,
 }
