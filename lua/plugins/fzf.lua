@@ -35,6 +35,13 @@ return {
 			end,
 			desc = "FZF help tags",
 		},
+        {
+            "<leader>fw",
+            function()
+                require("fzf-lua").grep_cword()
+            end,
+            desc = "FZF grep word under cursor"
+        }
 	},
 	config = function()
 		local fzf = require("fzf-lua")
