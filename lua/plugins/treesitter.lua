@@ -27,6 +27,8 @@ return {
 			-- Enable Tree-sitter based indentation (optional)
 			indent = {
 				enable = true,
+                -- Disable for typescript due to broken indentation after updating to neovim 0.12.1
+                disable = { "typescript", "tsx" }
 			},
 
 			-- Enable rainbow parentheses (optional)

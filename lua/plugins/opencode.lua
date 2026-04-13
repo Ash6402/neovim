@@ -29,7 +29,7 @@ return {
 		},
 		{
 			"<leader>go",
-			mode = { "n", "t" },
+			mode = { "n" },
 			desc = "Toggle opencode",
 			function()
 				require("opencode").toggle()
