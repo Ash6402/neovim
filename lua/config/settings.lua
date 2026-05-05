@@ -20,6 +20,8 @@ vim.opt.termguicolors = true
 
 vim.opt.splitbelow = true
 
+vim.opt.colorcolumn = "140"
+
 -- remove the underline from the highlight when doing incremental search
 vim.cmd([[highlight IncSearch cterm=NONE gui=NONE]])
 
@@ -71,6 +73,19 @@ vim.api.nvim_create_autocmd("FileType", {
 	pattern = { "css", "scss", "html", "javascript", "typescript" },
 	callback = function()
 		require("colorizer").attach_to_buffer(0)
+	end,
+})
+
+-- Start treesitter for the filetypes whose parser is installed
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = "*",
+	callback = function()
+		local parsers = require("nvim-treesitter").get_installed()
+		local filetype = vim.bo.filetype
+
+		if vim.tbl_contains(parsers, filetype) then
+			vim.treesitter.start()
+		end
 	end,
 })
 

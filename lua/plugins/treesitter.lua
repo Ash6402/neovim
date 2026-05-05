@@ -1,9 +1,10 @@
 return {
 	"nvim-treesitter/nvim-treesitter",
 	build = ":TSUpdate",
-	event = "BufReadPost",
+	lazy = false,
+	-- event = "BufReadPost",
 	config = function()
-		require("nvim-treesitter.configs").setup({
+		require("nvim-treesitter").setup({
 			-- Install parsers for these languages
 			ensure_installed = {
 				"vimdoc",
@@ -27,8 +28,8 @@ return {
 			-- Enable Tree-sitter based indentation (optional)
 			indent = {
 				enable = true,
-                -- Disable for typescript due to broken indentation after updating to neovim 0.12.1
-                disable = { "typescript", "tsx" }
+				-- Disable for typescript due to broken indentation after updating to neovim 0.12.1
+				disable = { "typescript", "tsx" }
 			},
 
 			-- Enable rainbow parentheses (optional)
