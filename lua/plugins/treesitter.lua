@@ -19,7 +19,6 @@ return {
 			"angular",
 			"python",
 			"json",
-			"jsonc",
 			"yaml",
 			"graphql",
 			"bash",
