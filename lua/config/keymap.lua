@@ -56,3 +56,13 @@ local gitdiff = require("config.gitdiff")
 vim.keymap.set("n", "<leader>gdf", gitdiff.git_diff_file_commits, { desc = "Git diff file commits" })
 vim.keymap.set("n", "<leader>gda", gitdiff.git_diff_all_commits, { desc = "Git diff all commits" })
 vim.keymap.set("n", "<leader>gdw", gitdiff.git_diff_head, { desc = "Git diff working tree vs HEAD" })
+
+--------------------------------------------------------------------------
+--- Lint & Typescript errors
+--------------------------------------------------------------------------
+local diag = require("config.diagnostics")
+-- <leader>ft → TypeScript type errors (tsc, TS projects only)
+vim.keymap.set("n", "<leader>ft", diag.type_errors, { desc = "Type errors (tsc)" })
+
+-- <leader>fl → Lint errors (eslint, JS + TS agnostic)
+vim.keymap.set("n", "<leader>fl", diag.lint_errors, { desc = "Lint errors (eslint)" })
