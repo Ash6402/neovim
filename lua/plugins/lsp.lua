@@ -13,7 +13,7 @@ return { -- Main LSP Configuration
 		-- Replaced cmp-nvim-lsp with blink.cmp
 		"saghen/blink.cmp",
 	},
-    event = { "BufReadPre", "BufNewFile" },
+	event = { "BufReadPre", "BufNewFile" },
 	config = function()
 		-- Brief aside: **What is LSP?**
 		--
@@ -290,13 +290,14 @@ return { -- Main LSP Configuration
 				},
 			},
 			tailwindcss = {
-				settings = {
-					tailwindCSS = {
-						includeLanguages = {
-							typescriptreact = "html",
-							javascriptreact = "html",
-						},
-					},
+				filetypes = {
+					"html",
+					"css",
+					"scss",
+					"javascript",
+					"javascriptreact",
+					"typescript",
+					"typescriptreact",
 				},
 			},
 		}
