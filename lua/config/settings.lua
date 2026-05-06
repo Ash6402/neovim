@@ -76,15 +76,17 @@ vim.api.nvim_create_autocmd("FileType", {
 	end,
 })
 
--- Start treesitter for the filetypes whose parser is installed
+-- Start treesitter highlighting and indentation for any filetype that has a parser.
+-- vim.treesitter.start() resolves filetype aliases (e.g. typescriptreact → tsx parser)
+-- so no manual filetype-to-parser mapping is needed.
 vim.api.nvim_create_autocmd("FileType", {
 	pattern = "*",
-	callback = function()
-		local parsers = require("nvim-treesitter").get_installed()
-		local filetype = vim.bo.filetype
-
-		if vim.tbl_contains(parsers, filetype) then
-			vim.treesitter.start()
+	callback = function(ev)
+		local ft = vim.bo[ev.buf].filetype
+		local ok = pcall(vim.treesitter.start, ev.buf)
+		-- Skip indentation for typescript/tsx due to broken indent in neovim 0.12+
+		if ok and ft ~= "typescript" and ft ~= "typescriptreact" then
+			vim.bo[ev.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
 		end
 	end,
 })
