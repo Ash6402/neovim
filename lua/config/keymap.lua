@@ -50,36 +50,6 @@ vim.keymap.set("n", "<leader>bc", function()
 end)
 
 -------------------------------------------------------------------------
---- Keymap to format the active buffer using prettierd/stylua
--------------------------------------------------------------------------
-vim.keymap.set("n", "<leader>p{", function()
-	-- Get the current cursor position
-	local row, col = unpack(vim.api.nvim_win_get_cursor(0))
-
-	local filetype = vim.bo.filetype
-	local output
-
-	-- Run the formatter on the current buffer
-	if filetype == "lua" then
-		output = vim.fn.system("stylua -", vim.api.nvim_buf_get_lines(0, 0, -1, false))
-	else
-		output = vim.fn.system(
-			"prettierd --stdin-filepath " .. vim.fn.expand("%:p"),
-			vim.api.nvim_buf_get_lines(0, 0, -1, false)
-		)
-	end
-
-	if vim.v.shell_error == 0 then
-		vim.api.nvim_buf_set_lines(0, 0, -1, false, vim.split(output, "\n"))
-	else
-		vim.notify(output, vim.log.levels.ERROR)
-	end
-
-	-- Jump the cursor poisition as after the running the formatter the cusror jumps to row 0 and col 0
-	vim.api.nvim_win_set_cursor(0, { row, col })
-end, { desc = "Run Prettier Formatting" })
-
--------------------------------------------------------------------------
 --- Git diff between two commits
 -------------------------------------------------------------------------
 local gitdiff = require("config.gitdiff")

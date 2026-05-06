@@ -255,7 +255,21 @@ return { -- Main LSP Configuration
 			},
 
 			emmet_language_server = {
-				filetypes = { "html", "css", "scss", "htmlangular" },
+				filetypes = { "html", "css", "scss", "htmlangular", "javascriptreact", "typescriptreact" },
+			},
+
+			eslint = {
+				settings = {
+					workingDirectory = { mode = "auto" },
+				},
+			},
+
+			jsonls = {
+				settings = {
+					json = {
+						validate = { enable = true },
+					},
+				},
 			},
 
 			lua_ls = {
@@ -299,7 +313,8 @@ return { -- Main LSP Configuration
 		-- for you, so that they are available from within Neovim.
 		local ensure_installed = vim.tbl_keys(servers or {})
 		vim.list_extend(ensure_installed, {
-			"stylua", -- Used to format Lua code
+			"stylua",
+			"prettierd",
 		})
 		require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 		require("mason-lspconfig").setup({
