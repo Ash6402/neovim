@@ -20,6 +20,8 @@ vim.opt.termguicolors = true
 
 vim.opt.splitbelow = true
 
+vim.opt.colorcolumn = "140"
+
 -- remove the underline from the highlight when doing incremental search
 vim.cmd([[highlight IncSearch cterm=NONE gui=NONE]])
 
@@ -56,9 +58,22 @@ vim.api.nvim_create_autocmd("BufWritePre", {
 	end,
 })
 
--- make indent 2 spaces for typescript, html & css files
+-- 2-space indentation for web, config, and shell filetypes
 vim.api.nvim_create_autocmd("FileType", {
-	pattern = { "typescript", "typescriptreact", "html", "htmlangular", "css" },
+	pattern = {
+		"javascript",
+		"javascriptreact",
+		"typescript",
+		"typescriptreact",
+		"html",
+		"htmlangular",
+		"css",
+		"scss",
+		"json",
+		"jsonc",
+		"yaml",
+		"sh",
+	},
 	callback = function()
 		vim.bo.shiftwidth = 2
 		vim.bo.tabstop = 2
@@ -71,6 +86,21 @@ vim.api.nvim_create_autocmd("FileType", {
 	pattern = { "css", "scss", "html", "javascript", "typescript" },
 	callback = function()
 		require("colorizer").attach_to_buffer(0)
+	end,
+})
+
+-- Start treesitter highlighting and indentation for any filetype that has a parser.
+-- vim.treesitter.start() resolves filetype aliases (e.g. typescriptreact → tsx parser)
+-- so no manual filetype-to-parser mapping is needed.
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = "*",
+	callback = function(ev)
+		local ft = vim.bo[ev.buf].filetype
+		local ok = pcall(vim.treesitter.start, ev.buf)
+		-- Skip indentation for typescript/tsx due to broken indent in neovim 0.12+
+		if ok and ft ~= "typescript" and ft ~= "typescriptreact" then
+			vim.bo[ev.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+		end
 	end,
 })
 

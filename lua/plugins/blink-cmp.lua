@@ -2,6 +2,7 @@ return {
 	"saghen/blink.cmp",
 	dependencies = {
 		"L3MON4D3/LuaSnip",
+		dependencies = { "rafamadriz/friendly-snippets" },
 		build = (function()
 			if vim.fn.has("win32") == 1 or vim.fn.executable("make") == 0 then
 				return
@@ -28,7 +29,7 @@ return {
 			end,
 		},
 		sources = {
-			default = { "lazydev", "lsp", "path", "buffer" },
+			default = { "lazydev", "lsp", "path", "snippets", "buffer" },
 			providers = {
 				lazydev = {
 					name = "LazyDev",
@@ -51,6 +52,9 @@ return {
 		},
 		completion = {
 			accept = { auto_brackets = { enabled = true } },
+			trigger = {
+				show_on_trigger_character = false,
+			},
 			menu = { border = "rounded" },
 			documentation = {
 				auto_show = true,

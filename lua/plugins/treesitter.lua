@@ -1,46 +1,27 @@
 return {
 	"nvim-treesitter/nvim-treesitter",
 	build = ":TSUpdate",
-	event = "BufReadPost",
+	lazy = false,
 	config = function()
-		require("nvim-treesitter.configs").setup({
-			-- Install parsers for these languages
-			ensure_installed = {
-				"vimdoc",
-				"markdown",
-				"lua",
-				"javascript",
-				"scss",
-				"typescript",
-				"tsx",
-				"html",
-				"css",
-				"angular",
-				"python",
-			},
-
-			-- Enable Tree-sitter based highlighting
-			highlight = {
-				enable = true,
-			},
-
-			-- Enable Tree-sitter based indentation (optional)
-			indent = {
-				enable = true,
-                -- Disable for typescript due to broken indentation after updating to neovim 0.12.1
-                disable = { "typescript", "tsx" }
-			},
-
-			-- Enable rainbow parentheses (optional)
-			rainbow = {
-				enable = true,
-				extended_mode = true,
-			},
-
-			modules = {},
-			auto_install = true,
-			sync_install = true,
-			ignore_install = {},
+		-- The new nvim-treesitter setup() only accepts install_dir.
+		-- ensure_installed/highlight/indent/auto_install are silently ignored.
+		-- Use install() directly to actually install parsers.
+		require("nvim-treesitter").install({
+			"vimdoc",
+			"markdown",
+			"lua",
+			"javascript",
+			"scss",
+			"typescript",
+			"tsx",
+			"html",
+			"css",
+			"angular",
+			"python",
+			"json",
+			"yaml",
+			"graphql",
+			"bash",
 		})
 	end,
 }
